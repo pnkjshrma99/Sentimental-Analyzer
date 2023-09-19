@@ -51,29 +51,11 @@
 
     <section class="container ">
         <div class="container">
-            <header>
-                <h2 class="text-xl-center text-white mb-4">On-Demand Sentiment Analysis</h2>
-            </header>
+            
             <main>
-                <section class="input-section d-flex flex-column gap-4 w-100">
-                    <form id="sentiment-form" >
-                    <textarea id="user-input" class="rounded-4 p-3" placeholder="Enter text to analyze"></textarea>
-                    <button  type="button" value="Submit" class="bg-primary-subtle py-2 px-4 text-md-center mx-auto d-flex"id="analyze-button">Analyze</button>
-                    </form>
-                </section>
-
-                
-                <section class="result-section" style="display: none;">
-                    <h2 class="text-xl-center text-white mb-4">Analysis Result</h2>
-                    <div id="sentiment-result">
-                        <p style="color: aliceblue;">User Input: <span id="user-input-text"></span></p>
-                        <p style="color: aliceblue;">Sentiment Score: <span id="sentiment-score"></span></p>
-                    </div>
-                </section>
-
                 <form action="/results.html" method="post">
-                    <h2 class="text-xl-center text-white mb-4">Social Media Presence </h2> 
-                    <input type="text" class="rounded-4 p-3 d-flex w-100" placeholder="Enter Text to Analyze" name="keyword"><br><br>
+                    <h2 class="text-xl-center text-white mb-4">Text Analyzer </h2> 
+                    <input type="text" class="rounded-4 p-3 d-flex w-100" name="keyword" placeholder="Enter Text to Analyze"><br><br>
                     <input type="submit" value="Submit" class="bg-primary-subtle py-2 px-4 text-md-center mx-auto d-flex">
                   </form>
             </main>
@@ -215,11 +197,3 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 </body>
 </body>
 </html>
-
-
-
-
-
-
-
-

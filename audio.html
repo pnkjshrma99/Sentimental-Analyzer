@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link href="static/css/style.css" rel="stylesheet">
-    <title>Analysis</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Sentimental</title>
 </head>
 <body>
 
@@ -23,13 +23,12 @@
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/">Home</a>
                 </li>
-                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Services
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Text Analyzer</a></li>
+                        <li><a class="dropdown-item" href="/service.html">Text Analyzer</a></li>
                         <li><a class="dropdown-item" href="#">Audio Analyzer</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Review Analyzer</a></li>
@@ -41,73 +40,126 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login.html">LogIn</a>
                 </li>
+                
+                
             </ul>
         </div>
     </div>
 </nav>
-<!--service section-->
 
-<div class="more-info-section bg-color">
+<!-- YouTube Video Analysis section -->
 
-    <section class="container ">
-        <div class="container">
-            <header>
-                <h2 class="text-xl-center text-white mb-4">On-Demand Sentiment Analysis</h2>
-            </header>
-            <main>
-                <section class="input-section d-flex flex-column gap-4 w-100">
-                    <form id="sentiment-form" >
-                    <textarea id="user-input" class="rounded-4 p-3" placeholder="Enter text to analyze"></textarea>
-                    <button  type="button" value="Submit" class="bg-primary-subtle py-2 px-4 text-md-center mx-auto d-flex"id="analyze-button">Analyze</button>
-                    </form>
-                </section>
+<section class="container ">
+    <div class="container">
+        <header>
+            <h1 class="text-xl-center text-black mb-4">Audio Sentiment Analysis</h1>
+        </header>
+        <main>
+            <section class="input-section d-flex flex-column gap-4 w-100">
+                <form id="video-sentiment-form">
+                    <textarea id="video-url" class="rounded-4 p-3 -flex flex-column gap-7 w-100 h-100" placeholder="Enter URL of video/audio"></textarea>
+                    <button type="button" class="bg-primary-subtle py-2 px-4 text-md-center mx-auto d-flex" id="analyze-video-button">Analyze</button>
+                </form>
+            </section>
 
-                
-                <section class="result-section" style="display: none;">
-                    <h2 class="text-xl-center text-white mb-4">Analysis Result</h2>
-                    <div id="sentiment-result">
-                        <p style="color: aliceblue;">User Input: <span id="user-input-text"></span></p>
-                        <p style="color: aliceblue;">Sentiment Score: <span id="sentiment-score"></span></p>
-                    </div>
-                </section>
-
-                <form action="/results.html" method="post">
-                    <h2 class="text-xl-center text-white mb-4">Social Media Presence </h2> 
-                    <input type="text" class="rounded-4 p-3 d-flex w-100" placeholder="Enter Text to Analyze" name="keyword"><br><br>
-                    <input type="submit" value="Submit" class="bg-primary-subtle py-2 px-4 text-md-center mx-auto d-flex">
-                  </form>
-            </main>
-        </div>
-    </section>
-</div>
+            <section class="result-section" style="display: none;">
+                <h2 class="text-xl-center text-black mb-9">Analysis Result</h2>
+                <div id="video-sentiment-result">
+                    <p style="color: black;">Video URL: <span id="video-url-text"></span></p>
+                    <p style="color: black;">Sentiment Score: <span id="video-sentiment-score"></span></p>
+                </div>
+            </section>
+        </main>
+    </div>
+</section>
 
 <script>
-    document.getElementById('analyze-button').addEventListener('click', function() {
-        const userInput = document.getElementById('user-input').value;
-        analyzeSentiment(userInput);
+    document.getElementById('analyze-video-button').addEventListener('click', function() {
+        const videoUrl = document.getElementById('video-url').value;
+        analyzeVideoSentiment(videoUrl);
     });
 
-    function analyzeSentiment(text) {
-        fetch('/analyze_sentiment', {
+    function analyzeVideoSentiment(url) {
+        fetch('/custom_analyze', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
             },
-            body: `user-input=${text}`,
+            body: JSON.stringify({ url }),
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('user-input-text').textContent = text;
-            document.getElementById('sentiment-score').textContent = data.sentiment_score;
+            document.getElementById('video-url-text').textContent = url;
+            document.getElementById('video-sentiment-score').textContent = data.sentiment_score;
             document.querySelector('.result-section').style.display = 'block';
         })
         .catch(error => console.error('Error:', error));
     }
 </script>
-<!--service section end-->
 
 
-<!--service section end-->
+
+
+<!--contact section-->
+<section class="common-section bg-color contact-section text-white">
+    <div class="custom-shape-divider-top-1684211116">
+        <svg data-name="Layer 1" preserveAspectRatio="none" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+            <path class="shape-fill"
+                  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+        </svg>
+    </div>
+
+    <div class="container text-center fw-bold common-title ">
+        <h2 class="common-heading text-white ">Contact Us</h2>
+        <hr class="w-25 mx-auto">
+    </div>
+
+    <div class="container ">
+        <div class="form-section  mx-auto">
+            <form>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" for="first-name">First name</label>
+                            <input class="form-control" id="first-name" placeholder="First name"
+                                   aria-label="First name" type="text" required>
+                        </div>
+                        <div class="col">
+                            <label for="last-name" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="last-name" placeholder="Last name"
+                                   aria-label="Last name" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" required
+                           placeholder="Enter your email" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" required
+                              placeholder="Enter your message " rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mb-4">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+<!--contact section end -->
+
+
+
+
+<!--footer section-->
+
 <footer class="main-footer-section">
     <div class="contact-details">
         <div class="px-6 d-flex flex-row justify-content-center w-100">
@@ -117,7 +169,7 @@
                         <div class="icon-div d-flex justify-content-center align-items-center rounded-circle mb-3 align-content-center">
                             <img src="static/images/map.gif" alt="GIF Image" class="img-fluid">
                         </div>
-                        <p class="text-white">Bhopal-(Madhya Pradesh) India</p>
+                        <p class="text-white" mg-5>Bhopal-(Madhya Pradesh) India</p>
                     </div>
                 </div>
             </div>
@@ -215,11 +267,3 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 </body>
 </body>
 </html>
-
-
-
-
-
-
-
-
